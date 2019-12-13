@@ -37,20 +37,31 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     backgroundColor: red[500]
+  },
+  jobsubmitted: {
+    backgroundColor: 'skyblue',
+    width: 100,
+    height: 100
+  },
+  requestongoing: {
+    backgroundColor: '#e6c300',
+    width: 100,
+    height: 100
+  },
+  requestcompleted: {
+    backgroundColor: 'green',
+    width: 100,
+    height: 100
   }
 }))
-
-  // const requestListResp = connect.get('dashboard/service_requests')
-  // requestListResp.then((res) => {
-  //   setOngoing(res.data.on_going_requests)
-  //   setCompleted(res.data.completed)
-  // })
 
 export const Dashboard = () => {
   const classes = useStyles()
   const [ongoing, setOngoing] = useState('');
   const [completed, setCompleted] = useState('');
   const [services, setServices] = useState('');
+  const [stats, setStats] = useState('');
+  const [premise, setPremises] = useState('');
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -67,6 +78,22 @@ export const Dashboard = () => {
       setServices(result.data)
     };
     fetchServices();
+  }, []);
+
+  useEffect(() => {
+    const fetchPremises = async () => {
+      const result = await connect.get('/dashboard/premises');
+      setPremises(result.data)
+    };
+    fetchPremises();
+  }, []);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      const result = await connect.get('/dashboard/service_requests/stat');
+      setStats(result.data)
+    };
+    fetchStats();
   }, []);
 
   return (
@@ -86,60 +113,35 @@ export const Dashboard = () => {
       >
         <Card className={classes.card}>
           <CardHeader
-            action={
-              <IconButton aria-label='settings'>
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title='Ongoing Request'
+            title='Job Stats'
           />
-          <CardContent>
-            <Card>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-          </CardContent>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <CardContent>
+              <label>Requests Submitted</label>
+              <Avatar aria-label="complete" className={classes.jobsubmitted}>
+                <span style={{fontSize: '36px'}}>{stats.ongoing_count+stats.completed_count}</span>
+              </Avatar>
+            </CardContent>
+          </div>
+          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
+            <CardContent>
+              <label>Requests Ongoing</label>
+              <Avatar aria-label="ongoing" className={classes.requestongoing}>
+                <span style={{fontSize: '36px'}}>{stats.ongoing_count}</span>
+              </Avatar>
+            </CardContent>
+            <CardContent>
+              <label>Requests Completed</label>
+              <Avatar aria-label="completed" className={classes.requestcompleted}>
+                <span style={{fontSize: '36px'}}>{stats.completed_count}</span>
+              </Avatar>
+            </CardContent>
+          </div>
         </Card>
 
         <Card className={classes.card}>
           <CardHeader
-            action={
-              <IconButton aria-label='settings'>
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title='Completed Request'
+            title='Activity Feed'
           />
           <CardContent>
             <Card>
@@ -180,8 +182,6 @@ export const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
-
-
 
       <div
         style={{
@@ -243,12 +243,11 @@ export const Dashboard = () => {
           <CardHeader title='Related Services' />
           <CardContent style={{ display: 'flex', flexDirection: 'row' }}>
             {services && services.map((service, index) => (
-              <Card style={{ padding: '12px', marginLeft: '12px' }}>
+              <Card key={index} style={{ padding: '12px', marginLeft: '12px' }}>
                 <CardContent>
                   <CardMedia
                     className={classes.media}
                     image={service.url}
-                    title='Contemplative Reptile'
                   />
                   <Typography gutterBottom variant='h5' component='h2'>
                     {service.name}

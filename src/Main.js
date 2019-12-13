@@ -124,7 +124,7 @@ const Main = () => {
             <List>
               <section style={{padding: '25px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                 <Avatar aria-label="avatar" className={classes.avatar}>
-                  R
+                  J
                 </Avatar>
                 <div style={{display:'flex', flexDirection:'column', marginLeft:'10px'}}>
                 <div>John Doe</div>
