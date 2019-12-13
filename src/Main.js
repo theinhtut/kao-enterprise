@@ -19,6 +19,7 @@ import Divider from '@material-ui/core/Divider'
 import CreateUnitProfile from './components/CreateUnitProfile'
 import ServiceRequestForm from './components/ServiceRequestForm'
 import ViewUnitProfile from './components/ViewUnitProfile'
+import ViewUserProfile from './components/ViewUserProfile'
 import logo from './images/k-e-white.svg'
 // import Header from './Header'
 // import history from '../history';
@@ -169,6 +170,7 @@ const Main = () => {
               <Route path='/dashboard' exact component={Dashboard} />
               <Route path='/request/' exact component={Request} />
               <Route path='/units/' exact component={ViewUnitProfile} />
+              <Route path='/users/' exact component={ViewUserProfile} />
               <Route path='/request/new' exact component={ServiceRequestForm} />
             </Switch>
             <div className={classes.toolbar} />

@@ -1,20 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import connect from './../apis/axios'
 import { makeStyles } from '@material-ui/core/styles'
-import clsx from 'clsx'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
-import CardActions from '@material-ui/core/CardActions'
-import Collapse from '@material-ui/core/Collapse'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import { red } from '@material-ui/core/colors'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ShareIcon from '@material-ui/icons/Share'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +55,8 @@ export const Dashboard = () => {
   const [completed, setCompleted] = useState('');
   const [services, setServices] = useState('');
   const [stats, setStats] = useState('');
-  const [premise, setPremises] = useState('');
+  const [premises, setPremises] = useState('');
+  const [feeds, setFeeds] = useState('');
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -96,6 +91,14 @@ export const Dashboard = () => {
     fetchStats();
   }, []);
 
+  useEffect(() => {
+    const fetchFeeds = async () => {
+      const result = await connect.get('/dashboard/activity_feeds');
+      setFeeds(result.data)
+    };
+    fetchFeeds();
+  }, []);
+
   return (
     <div
       style={{
@@ -119,7 +122,7 @@ export const Dashboard = () => {
             <CardContent>
               <label>Requests Submitted</label>
               <Avatar aria-label="complete" className={classes.jobsubmitted}>
-                <span style={{fontSize: '36px'}}>{stats.ongoing_count+stats.completed_count}</span>
+                <span style={{fontSize: '36px'}}>{typeof stats.ongoing_count === 'number' ? stats.ongoing_count+stats.completed_count : ''}</span>
               </Avatar>
             </CardContent>
           </div>
@@ -144,41 +147,13 @@ export const Dashboard = () => {
             title='Activity Feed'
           />
           <CardContent>
-            <Card>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
+            {feeds && feeds.map((feed, index) => (
+            <Card key={index} style={{marginTop: '12px', padding: '8px'}}>
+              <label style={{textTransform: 'capitalize', fontSize: '20px'}}>{feed.activity_type}</label><br />
+              <label>{new Date(feed.created_at).toDateString()} - {feed.detail}</label>
             </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
+            )
+            )}
           </CardContent>
         </Card>
       </div>
@@ -264,18 +239,20 @@ export const Dashboard = () => {
         <Card className={classes.servicecard}>
           <CardHeader title='Related Units' />
           <CardContent style={{ display: 'flex', flexDirection: 'row' }}>
-            <Card style={{ padding: '12px' }}>
-              <CardContent>
-                <CardMedia
-                  className={classes.media}
-                  image='/static/images/cards/contemplative-reptile.jpg'
-                  title='Contemplative Reptile'
-                />
-                <Typography gutterBottom variant='h5' component='h2'>
-                  Lizard
-                </Typography>
-              </CardContent>
-            </Card>
+            {premises && premises.map((premise, index) => (
+              <Card key={index} style={{ padding: '12px', marginLeft: '12px' }}>
+                <CardContent>
+                  <CardMedia
+                    className={classes.media}
+                    // image={premise.url}
+                  />
+                  <Typography gutterBottom variant='h5' component='h2'>
+                    {premise.name}
+                  </Typography>
+                </CardContent>
+              </Card>
+            )
+            )}
           </CardContent>
         </Card>
       </div>
