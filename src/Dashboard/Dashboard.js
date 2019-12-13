@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
     width: 1055
   },
   feedcard: {
-    marginTop: '20px',
-    // margin: '0 50px',
+    maxHeight: 500,
+    overflowY: 'scroll',
     width: 500
   },
   media: {
@@ -114,7 +114,7 @@ export const Dashboard = () => {
           justifyContent: 'space-evenly'
         }}
       >
-        <Card className={classes.card}>
+        <Card className={classes.card} style={{maxHeight: 500, overflow: 'scroll'}}>
           <CardHeader
             title='Job Stats'
           />
@@ -142,7 +142,7 @@ export const Dashboard = () => {
           </div>
         </Card>
 
-        <Card className={classes.card}>
+        <Card className={classes.feedcard}>
           <CardHeader
             title='Activity Feed'
           />
@@ -244,7 +244,7 @@ export const Dashboard = () => {
                 <CardContent>
                   <CardMedia
                     className={classes.media}
-                    // image={premise.url}
+                    image={premise.image_url}
                   />
                   <Typography gutterBottom variant='h5' component='h2'>
                     {premise.name}
