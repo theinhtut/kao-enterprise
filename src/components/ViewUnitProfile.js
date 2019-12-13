@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Button, Paper, Grid, ButtonBase, Typography } from '@material-ui/core'
+import { Button, Paper, Grid, Typography } from '@material-ui/core'
 import buildingImg from '../images/building.svg'
 import '../styles/unit-profile.css'
 

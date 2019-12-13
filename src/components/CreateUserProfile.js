@@ -4,16 +4,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import {
   Button,
   TextField,
-  Paper,
-  Grid,
-  ButtonBase,
   Typography
 } from '@material-ui/core'
 import '../styles/service-request-form.css'
 import Avatar from '@material-ui/core/Avatar'
 import Card from '@material-ui/core/Card'
-import CardHeader from '@material-ui/core/CardHeader'
-import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import '../styles/unit-profile.css'
 

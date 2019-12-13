@@ -21,6 +21,7 @@ import CreateUserProfile from './components/CreateUserProfile'
 import ServiceRequestForm from './components/ServiceRequestForm'
 import ViewUnitProfile from './components/ViewUnitProfile'
 import ViewUserProfile from './components/ViewUserProfile'
+import Payment from './components/Payment'
 import logo from './images/k-e-white.svg'
 // import Header from './Header'
 // import history from '../history';
@@ -173,6 +174,7 @@ const Main = () => {
               <Route path='/request/' exact component={Request} />
               <Route path='/units/' exact component={ViewUnitProfile} />
               <Route path='/users/' exact component={ViewUserProfile} />
+              <Route path='/payment/' exact component={Payment} />
               <Route path='/users/edit' exact component={CreateUserProfile} />
               <Route path='/request/new' exact component={ServiceRequestForm} />
             </Switch>
