@@ -16,6 +16,9 @@ import { Link, Router, Route, Switch } from 'react-router-dom'
 import Dashboard from './Dashboard/Dashboard'
 import Request from './Dashboard/Request'
 import Divider from '@material-ui/core/Divider';
+import CreateUnitProfile from './components/CreateUnitProfile'
+import ServiceRequestForm from './components/ServiceRequestForm'
+import ViewUnitProfile from './components/ViewUnitProfile'
 // import Header from './Header'
 // import history from '../history';
 
@@ -145,6 +148,8 @@ const Main = () => {
             <Switch>
               <Route path='/dashboard' exact component={Dashboard} />
               <Route path='/request/' exact component={Request} />
+              <Route path='/units/' exact component={ViewUnitProfile} />
+              <Route path='/request/new' exact component={ServiceRequestForm} />
             </Switch>
             <div className={classes.toolbar} />
           </main>
