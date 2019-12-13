@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import connect from './../apis/axios'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
@@ -31,19 +31,44 @@ const useStyles = makeStyles((theme) => ({
     // margin: '0 50px',
     width: 500
   },
+  media: {
+    height: 100,
+    width: 125
+  },
   avatar: {
     backgroundColor: red[500]
   }
 }))
 
+  // const requestListResp = connect.get('dashboard/service_requests')
+  // requestListResp.then((res) => {
+  //   setOngoing(res.data.on_going_requests)
+  //   setCompleted(res.data.completed)
+  // })
+
 export const Dashboard = () => {
   const classes = useStyles()
   const [ongoing, setOngoing] = useState('');
-  let response
-  const requestListResp = connect.get('dashboard/service_requests')
-  requestListResp.then((res) => {
-    setOngoing(res.data.on_going_requests)
-  })
+  const [completed, setCompleted] = useState('');
+  const [services, setServices] = useState('');
+
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      const result = await connect.get('dashboard/service_requests');
+      setOngoing(result.data.on_going_requests)
+      setCompleted(result.data.completed_requests)
+    };
+    fetchDashboard();
+  }, []);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      const result = await connect.get('dashboard/service_types');
+      setServices(result.data)
+    };
+    fetchServices();
+  }, []);
+
   return (
     <div
       style={{
@@ -177,10 +202,10 @@ export const Dashboard = () => {
           />
           <CardContent>
           {ongoing && ongoing.map((text, index) => (
-            <Card style={{marginTop: '8px'}}>
+            <Card key={index} style={{marginTop: '12px'}}>
               <CardContent>
                 <Typography variant='body2' color='textSecondary' component='p'>
-                  {text.service_type_name}
+                  {`${text.service_type_name} @ ${text.service_area_name}`}
                 </Typography>
               </CardContent>
             </Card>
@@ -199,41 +224,16 @@ export const Dashboard = () => {
             title='Completed Request'
           />
           <CardContent>
-            <Card>
+          {completed && completed.map((text, index) => (
+            <Card key={index} style={{marginTop: '12px'}}>
               <CardContent>
                 <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
+                  {`${text.service_type_name} @ ${text.service_area_name}`}
                 </Typography>
               </CardContent>
             </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={{ marginTop: '12px' }}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  Office Cleaning @ Jalan Wan Kadir
-                </Typography>
-              </CardContent>
-            </Card>
+            )
+          )}
           </CardContent>
         </Card>
       </div>
@@ -242,18 +242,21 @@ export const Dashboard = () => {
         <Card className={classes.servicecard}>
           <CardHeader title='Related Services' />
           <CardContent style={{ display: 'flex', flexDirection: 'row' }}>
-            <Card style={{ padding: '12px' }}>
-              <CardContent>
-                <CardMedia
-                  className={classes.media}
-                  image='/static/images/cards/contemplative-reptile.jpg'
-                  title='Contemplative Reptile'
-                />
-                <Typography gutterBottom variant='h5' component='h2'>
-                  Lizard
-                </Typography>
-              </CardContent>
-            </Card>
+            {services && services.map((service, index) => (
+              <Card style={{ padding: '12px', marginLeft: '12px' }}>
+                <CardContent>
+                  <CardMedia
+                    className={classes.media}
+                    image={service.url}
+                    title='Contemplative Reptile'
+                  />
+                  <Typography gutterBottom variant='h5' component='h2'>
+                    {service.name}
+                  </Typography>
+                </CardContent>
+              </Card>
+            )
+            )}
           </CardContent>
         </Card>
       </div>
