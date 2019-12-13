@@ -1,6 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Button, Paper, Grid, ButtonBase, Typography } from '@material-ui/core'
+import buildingImg from '../images/building.svg'
+import '../styles/unit-profile.css'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,6 +64,9 @@ export default function FullWidthGrid() {
         >
           Create Unit
         </Button>
+      </div>
+      <div className='unit-profile'>
+        <img className='unit-profile__img' src={buildingImg} alt=''/>
       </div>
       <div className={classes.root}>
         <Grid container spacing={1}>

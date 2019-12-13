@@ -1,6 +1,6 @@
 import React from 'react'
 import { fade, makeStyles } from '@material-ui/core/styles'
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from '@material-ui/core/Avatar'
 import Drawer from '@material-ui/core/Drawer'
 import AppBar from '@material-ui/core/AppBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -8,17 +8,18 @@ import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
 import ListItem from '@material-ui/core/ListItem'
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search'
+import InputBase from '@material-ui/core/InputBase'
 import ListItemText from '@material-ui/core/ListItemText'
 import { createBrowserHistory } from 'history'
 import { Link, Router, Route, Switch } from 'react-router-dom'
 import Dashboard from './Dashboard/Dashboard'
 import Request from './Dashboard/Request'
-import Divider from '@material-ui/core/Divider';
+import Divider from '@material-ui/core/Divider'
 import CreateUnitProfile from './components/CreateUnitProfile'
 import ServiceRequestForm from './components/ServiceRequestForm'
 import ViewUnitProfile from './components/ViewUnitProfile'
+import logo from './images/k-e-white.svg'
 // import Header from './Header'
 // import history from '../history';
 
@@ -55,14 +56,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       margin: '0 auto',
-      width: 'auto',
-    },
+      width: 'auto'
+    }
   },
   searchIcon: {
     width: theme.spacing(7),
@@ -71,10 +72,10 @@ const useStyles = makeStyles((theme) => ({
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   inputRoot: {
-    color: 'inherit',
+    color: 'inherit'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 7),
@@ -83,10 +84,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: 300,
       '&:focus': {
-        width: 500,
-      },
-    },
-  },
+        width: 500
+      }
+    }
+  }
 }))
 
 const Main = () => {
@@ -98,22 +99,20 @@ const Main = () => {
           <CssBaseline />
           <AppBar position='fixed' className={classes.appBar}>
             <Toolbar>
-              <Typography variant='h6' noWrap>
-                Kaodim Enterprise
-              </Typography>
+              <img src={logo} alt='' />
               <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder='Search…'
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput
+                  }}
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </div>
             </Toolbar>
           </AppBar>
           <Drawer
@@ -125,18 +124,39 @@ const Main = () => {
           >
             <div className={classes.toolbar} />
             <List>
-              <section style={{padding: '25px', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                <Avatar aria-label="avatar" className={classes.avatar}>
+              <section
+                style={{
+                  padding: '25px',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }}
+              >
+                <Avatar aria-label='avatar' className={classes.avatar}>
                   R
                 </Avatar>
-                <div style={{display:'flex', flexDirection:'column', marginLeft:'10px'}}>
-                <div>John Doe</div>
-                <span>contact@example.com</span>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    marginLeft: '10px'
+                  }}
+                >
+                  <div>John Doe</div>
+                  <span>contact@example.com</span>
                 </div>
               </section>
               <Divider />
               {['dashboard', 'units', 'payment', 'users'].map((text, index) => (
-                <Link to={`/${text}`} key={index} style={{color:'black', textTransform: 'capitalize', textDecoration: 'none'}}>
+                <Link
+                  to={`/${text}`}
+                  key={index}
+                  style={{
+                    color: 'black',
+                    textTransform: 'capitalize',
+                    textDecoration: 'none'
+                  }}
+                >
                   <ListItem button key={text}>
                     <ListItemText primary={text} />
                   </ListItem>
