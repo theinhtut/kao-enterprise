@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import { Button, TextField, Typography } from '@material-ui/core'
 import formImg from '../images/form-submit.svg'
@@ -58,11 +59,13 @@ export default function ServiceRequestForm() {
           />
           <Button
             className='request-form__btn'
-            onClick={() => console.log('You have submit the request')}
+            onClick={() => alert('You have successfully submitted the request')}
             variant='contained'
             color='primary'
           >
-            Submit Request
+            <Link to={'/dashboard'} style={{color: 'white', textDecoration:'none'}}>
+              Submit Request
+            </Link>
           </Button>
         </div>
         <div className='request-form'>

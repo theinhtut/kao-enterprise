@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { Link } from 'react-router-dom'
 import connect from './../apis/axios'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
@@ -122,7 +123,7 @@ export const Dashboard = () => {
             <CardContent>
               <label>Requests Submitted</label>
               <Avatar aria-label="complete" className={classes.jobsubmitted}>
-                <span style={{fontSize: '36px'}}>{typeof stats.ongoing_count === 'number' ? stats.ongoing_count+stats.completed_count : ''}</span>
+                <span style={{fontSize: '36px'}}>{stats.total_count}</span>
               </Avatar>
             </CardContent>
           </div>
@@ -178,11 +179,13 @@ export const Dashboard = () => {
           <CardContent>
           {ongoing && ongoing.map((text, index) => (
             <Card key={index} style={{marginTop: '12px'}}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  {`${text.service_type_name} @ ${text.service_area_name}`}
-                </Typography>
-              </CardContent>
+              <Link to={'/requestdetails'} style={{textDecoration:'none'}}>
+                <CardContent>
+                  <Typography variant='body2' color='textSecondary' component='p'>
+                    {`${text.service_type_name} @ ${text.service_area_name}`}
+                  </Typography>
+                </CardContent>
+              </Link>
             </Card>
             )
           )}
@@ -201,11 +204,13 @@ export const Dashboard = () => {
           <CardContent>
           {completed && completed.map((text, index) => (
             <Card key={index} style={{marginTop: '12px'}}>
-              <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  {`${text.service_type_name} @ ${text.service_area_name}`}
-                </Typography>
-              </CardContent>
+              <Link to={'/requestdetails'} style={{textDecoration:'none'}}>
+                <CardContent>
+                  <Typography variant='body2' color='textSecondary' component='p'>
+                    {`${text.service_type_name} @ ${text.service_area_name}`}
+                  </Typography>
+                </CardContent>
+              </Link>
             </Card>
             )
           )}
@@ -219,15 +224,17 @@ export const Dashboard = () => {
           <CardContent style={{ display: 'flex', flexDirection: 'row' }}>
             {services && services.map((service, index) => (
               <Card key={index} style={{ padding: '12px', marginLeft: '12px' }}>
-                <CardContent>
-                  <CardMedia
-                    className={classes.media}
-                    image={service.url}
-                  />
-                  <Typography gutterBottom variant='h5' component='h2'>
-                    {service.name}
-                  </Typography>
-                </CardContent>
+                <Link to={'/request/new'} style={{textDecoration:'none'}}>
+                  <CardContent>
+                    <CardMedia
+                      className={classes.media}
+                      image={service.url}
+                    />
+                    <Typography gutterBottom variant='h5' component='h2'>
+                      {service.name}
+                    </Typography>
+                  </CardContent>
+                </Link>
               </Card>
             )
             )}

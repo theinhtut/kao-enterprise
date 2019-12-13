@@ -6,7 +6,6 @@ import AppBar from '@material-ui/core/AppBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
 import ListItem from '@material-ui/core/ListItem'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
@@ -15,8 +14,10 @@ import { createBrowserHistory } from 'history'
 import { Link, Router, Route, Switch } from 'react-router-dom'
 import Dashboard from './Dashboard/Dashboard'
 import Request from './Dashboard/Request'
+import RequestDetails from './Dashboard/RequestDetails'
 import Divider from '@material-ui/core/Divider'
 import CreateUnitProfile from './components/CreateUnitProfile'
+import CreateUserProfile from './components/CreateUserProfile'
 import ServiceRequestForm from './components/ServiceRequestForm'
 import ViewUnitProfile from './components/ViewUnitProfile'
 import ViewUserProfile from './components/ViewUserProfile'
@@ -168,9 +169,11 @@ const Main = () => {
           <main className={classes.content}>
             <Switch>
               <Route path='/dashboard' exact component={Dashboard} />
+              <Route path='/requestdetails/' exact component={RequestDetails} />              
               <Route path='/request/' exact component={Request} />
               <Route path='/units/' exact component={ViewUnitProfile} />
               <Route path='/users/' exact component={ViewUserProfile} />
+              <Route path='/users/edit' exact component={CreateUserProfile} />
               <Route path='/request/new' exact component={ServiceRequestForm} />
             </Switch>
             <div className={classes.toolbar} />
