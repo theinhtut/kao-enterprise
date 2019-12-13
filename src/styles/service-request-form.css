@@ -3,3 +3,22 @@
   flex-direction: column;
   flex-basis: 40%;
 }
+
+.request-form__input-wrapper {
+  margin-right: 1em;
+
+}
+
+.request-form {
+  margin: 1em 0;
+  display: flex;
+  justify-content: center;
+}
+
+.request-form__btn {
+  background-color: #ED193A !important;
+}
+
+.request-form__img {
+  height: 16em;
+}
