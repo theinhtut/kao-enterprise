@@ -169,10 +169,12 @@ const Main = () => {
           </Drawer>
           <main className={classes.content}>
             <Switch>
+              <Route path='/' exact component={Dashboard} />
               <Route path='/dashboard' exact component={Dashboard} />
               <Route path='/requestdetails/' exact component={RequestDetails} />              
               <Route path='/request/' exact component={Request} />
               <Route path='/units/' exact component={ViewUnitProfile} />
+              <Route path='/units/new' exact component={CreateUnitProfile} />
               <Route path='/users/' exact component={ViewUserProfile} />
               <Route path='/payment/' exact component={Payment} />
               <Route path='/users/edit' exact component={CreateUserProfile} />
